@@ -15,8 +15,5 @@ public class LoginResponse {
     private String message;
     private String role;
     private String username;
-<<<<<<< HEAD
     private Long id;
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 }

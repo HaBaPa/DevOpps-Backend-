@@ -1,19 +1,13 @@
 package com.atp.fwfe.controller.work;
 
 import com.atp.fwfe.dto.work.CompanyResponse;
-<<<<<<< HEAD
 import com.atp.fwfe.dto.work.CreateCompanyDto;
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 import com.atp.fwfe.service.work.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-<<<<<<< HEAD
 import org.springframework.security.core.context.SecurityContextHolder;
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +22,6 @@ import java.util.List;
 public class CompanyController {
     private final CompanyService companyService;
 
-<<<<<<< HEAD
     private String getCurrentUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
@@ -38,26 +31,12 @@ public class CompanyController {
     public ResponseEntity<CompanyResponse> create(
             @RequestBody @Valid CreateCompanyDto dto) {
         return ResponseEntity.ok(companyService.create(dto, getCurrentUsername()));
-=======
-    @PostMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
-    public ResponseEntity<CompanyResponse> create(
-            @RequestBody @Valid com.atp.fwfe.dto.work.CreateCompanyDto dto,
-            @RequestHeader("X-Username") String username) {
-        return ResponseEntity.ok(companyService.create(dto, username));
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     }
 
     @GetMapping("/my")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
-<<<<<<< HEAD
     public ResponseEntity<List<CompanyResponse>> getByOwner() {
         return ResponseEntity.ok(companyService.findByOwner(getCurrentUsername()));
-=======
-    public ResponseEntity<List<CompanyResponse>> getByOwner(
-            @RequestHeader("X-Username") String username) {
-        return ResponseEntity.ok(companyService.findByOwner(username));
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     }
 
     @GetMapping("/{id}/public")
@@ -66,35 +45,19 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.getSanitizedCompany(id));
     }
 
-<<<<<<< HEAD
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
     public ResponseEntity<List<CompanyResponse>> getAll() {
         String username = getCurrentUsername();
         String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
-=======
-
-    @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-    public ResponseEntity<List<CompanyResponse>> getAll(
-            @RequestHeader("X-Username") String username,
-            @RequestHeader("X-Role") String role) {
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
         return ResponseEntity.ok(companyService.getAll(username, role));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-<<<<<<< HEAD
     public ResponseEntity<CompanyResponse> getOne(@PathVariable Long id) {
         String username = getCurrentUsername();
         String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
-=======
-    public ResponseEntity<CompanyResponse> getOne(
-            @PathVariable Long id,
-            @RequestHeader("X-Username") String username,
-            @RequestHeader("X-Role") String role) {
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
         return ResponseEntity.ok(companyService.getOne(id, username, role));
     }
 
@@ -102,46 +65,24 @@ public class CompanyController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<CompanyResponse> update(
             @PathVariable Long id,
-<<<<<<< HEAD
             @RequestBody @Valid CreateCompanyDto dto) {
         String username = getCurrentUsername();
         String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
-=======
-            @RequestBody @Valid com.atp.fwfe.dto.work.CreateCompanyDto dto,
-            @RequestHeader("X-Username") String username,
-            @RequestHeader("X-Role") String role) {
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
         return ResponseEntity.ok(companyService.update(id, dto, username, role));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
-<<<<<<< HEAD
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         String username = getCurrentUsername();
         String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
-=======
-    public ResponseEntity<Void> delete(
-            @PathVariable Long id,
-            @RequestHeader("X-Username") String username,
-            @RequestHeader("X-Role") String role) {
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
         companyService.delete(id, username, role);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-<<<<<<< HEAD
     public ResponseEntity<List<CompanyResponse>> search(@RequestParam String keyword) {
         return ResponseEntity.ok(companyService.search(keyword));
     }
 }
-=======
-    public ResponseEntity<List<CompanyResponse>> search(
-            @RequestParam String keyword) {
-        return ResponseEntity.ok(companyService.search(keyword));
-    }
-}
-
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788

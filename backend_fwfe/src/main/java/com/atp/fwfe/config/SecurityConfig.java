@@ -37,22 +37,15 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-<<<<<<< HEAD
                         .requestMatchers("/api/auth/**").permitAll()
-=======
-                        .requestMatchers("/api/auth/**", "/api/chat/**").permitAll()
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 
                         .requestMatchers(HttpMethod.GET, "/api/admin/*").authenticated()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         .requestMatchers("/api/account/**").hasAnyRole("ADMIN", "MANAGER", "USER")
 
-<<<<<<< HEAD
                         .requestMatchers("/api/chat/**").hasAnyRole("ADMIN", "MANAGER", "USER")
 
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 
                         .requestMatchers(HttpMethod.POST, "/api/companies").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/companies/my").hasAnyRole("ADMIN", "MANAGER")
@@ -97,14 +90,9 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
-<<<<<<< HEAD
         configuration.setAllowedOrigins(List.of("http://10.0.2.2:8000", "http://127.0.0.1:8000"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Username", "X-Role"));
-=======
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
         configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
 

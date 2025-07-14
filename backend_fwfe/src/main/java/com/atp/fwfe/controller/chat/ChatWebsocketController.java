@@ -31,10 +31,7 @@ public class ChatWebsocketController {
     @Autowired
     private ChatMessageService messageService;
 
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.group")
     public void sendGroupMessage(@Valid ChatMessageRequest request, Principal principal){
         ChatMessage message = new ChatMessage();
@@ -52,10 +49,7 @@ public class ChatWebsocketController {
 
     }
 
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.private")
     public void sendPrivateMessage(@Valid ChatMessageRequest request, Principal principal){
         ChatMessage message = new ChatMessage();
@@ -74,10 +68,7 @@ public class ChatWebsocketController {
         );
     }
 
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.markRead")
     public void markAsRead(Long messageId, Principal principal){
         messageService.markAsRead(messageId, principal.getName());

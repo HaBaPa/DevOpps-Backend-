@@ -23,10 +23,7 @@ public class ChatRestController {
     @Autowired
     private ChatMessageService messageService;
 
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @GetMapping("/received")
     public List<ChatMessageResponse> getReceivedMessages(Principal principal) {
         return messageService.findReceivedMessages(principal.getName())
@@ -44,10 +41,7 @@ public class ChatRestController {
                 .toList();
     }
 
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @PutMapping("/mark-read/{id}")
     public ResponseEntity<?> markAsRead(@PathVariable Long id, Principal principal){
         messageService.markAsRead(id, principal.getName());
