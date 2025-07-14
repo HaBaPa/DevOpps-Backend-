@@ -16,7 +16,10 @@ public class LoginResponse {
     private String role;
     private String username;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Long id;
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 }

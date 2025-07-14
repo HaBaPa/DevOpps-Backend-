@@ -32,7 +32,10 @@ public class ChatWebsocketController {
     private ChatMessageService messageService;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.group")
@@ -53,7 +56,10 @@ public class ChatWebsocketController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.private")
@@ -75,7 +81,10 @@ public class ChatWebsocketController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.markRead")

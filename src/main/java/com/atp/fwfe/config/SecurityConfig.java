@@ -38,7 +38,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                         .requestMatchers("/api/auth/**").permitAll()
+=======
+                        .requestMatchers("/api/auth/**", "/api/chat/**").permitAll()
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
                         .requestMatchers("/api/auth/**", "/api/chat/**").permitAll()
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
@@ -49,8 +53,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/account/**").hasAnyRole("ADMIN", "MANAGER", "USER")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                         .requestMatchers("/api/chat/**").hasAnyRole("ADMIN", "MANAGER", "USER")
 
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 
@@ -98,9 +105,14 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         configuration.setAllowedOrigins(List.of("http://10.0.2.2:8000", "http://127.0.0.1:8000"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Username", "X-Role"));
+=======
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));

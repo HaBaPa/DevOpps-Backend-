@@ -24,7 +24,10 @@ public class ChatRestController {
     private ChatMessageService messageService;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @GetMapping("/received")
@@ -45,7 +48,10 @@ public class ChatRestController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @PutMapping("/mark-read/{id}")

@@ -104,6 +104,7 @@ public class AccService {
                         .body(new LoginResponse(
                                 null,
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 "Tài khoản đã bị tạm khóa...",
                                 null,
                                 account.getUsername(),
@@ -111,10 +112,15 @@ public class AccService {
                         ));
 
 =======
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
                                 "Tài khoản đã bị tạm khóa 1 tuần bởi admin do vi phạm tiêu chuẩn độ tin cậy với cộng đồng.\nVui lòng chờ hoặc liên hệ quản trị viên qua zalo - 0768471834 -",
                                 null,
                                 null
                         ));
+<<<<<<< HEAD
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
             }
 
@@ -123,17 +129,23 @@ public class AccService {
             String username = account.getUsername();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             return ResponseEntity.ok(new LoginResponse(token, "Đăng nhập thành công!", role, username, account.getId()));
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse(null, "Tên đăng nhập hoặc mật khẩu không đúng!", null, null, null));
 =======
+=======
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
             return ResponseEntity.ok(new LoginResponse(token, "Đăng nhập thành công!", role, username));
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse(null, "Tên đăng nhập hoặc mật khẩu không đúng!", null, null));
+<<<<<<< HEAD
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
         }
     }
@@ -262,6 +274,7 @@ public class AccService {
         Account account = findOne(id);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (request.getName() != null) {
             account.setName(request.getName());
         }
@@ -280,6 +293,9 @@ public class AccService {
 =======
         if(request.getRole() != null) account.setRole(request.getRole());
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+        if(request.getRole() != null) account.setRole(request.getRole());
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 
         account.setLocked(request.isLocked());
         account.setUpdatedBy(request.getUpdatedBy());
@@ -288,7 +304,11 @@ public class AccService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     //ADMIN kết thúc
+=======
+//ADMIN kết thúc
+>>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 //ADMIN kết thúc
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
