@@ -11,5 +11,4 @@ public class AdminUpdateUserRequest {
     private boolean locked;
     private String updatedBy;
     private String name;
-    private String name;
 }
