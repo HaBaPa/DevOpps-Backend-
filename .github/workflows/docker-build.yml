@@ -35,10 +35,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 6️⃣ Build và push image lên Docker Hub
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./backend_fwfe           
+          file: ./backend_fwfe/Dockerfile   
           push: true
           tags: habapa2k4/backend:latest
+
