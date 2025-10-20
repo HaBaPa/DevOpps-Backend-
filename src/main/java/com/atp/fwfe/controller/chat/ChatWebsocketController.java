@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.Principal;
 import java.time.format.DateTimeFormatter;
@@ -26,16 +27,10 @@ public class ChatWebsocketController {
     @Autowired
     private ChatMessageService messageService;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.group")
     public void sendGroupMessage(@Valid ChatMessageRequest request, Principal principal) {
-        String sender = principal.getName(); // đã được WebSocketSecurityConfig giải mã từ JWT
+        String sender = principal.getName();
 
         ChatMessage message = new ChatMessage();
         message.setSender(sender);
@@ -51,13 +46,7 @@ public class ChatWebsocketController {
         messagingTemplate.convertAndSend("/topic/chat/group", response);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.private")
     public void sendPrivateMessage(@Valid ChatMessageRequest request, Principal principal) {
         String sender = principal.getName();
@@ -78,25 +67,15 @@ public class ChatWebsocketController {
         );
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @MessageMapping("/chat.markRead")
     public void markAsRead(Long messageId, Principal principal) {
         ChatMessage updated = messageService.markAsRead(messageId, principal.getName());
-
         ChatMessageResponse response = mapToResponse(updated, principal.getName());
-
-        // Gửi lại cho toàn bộ group chat
         messagingTemplate.convertAndSend("/topic/chat/group", response);
     }
 
-
-    @MessageMapping("/chat.send") // dùng để test JWT principal hoạt động
+    @MessageMapping("/chat.send")
     public void testPrincipal(ChatMessageRequest request, Principal principal) {
         System.out.println("🔐 [TEST] Người dùng WebSocket: " + principal.getName());
     }
@@ -106,7 +85,6 @@ public class ChatWebsocketController {
                 .map(Account::getUsername)
                 .collect(Collectors.toList());
 
-        // ✅ Đừng ép null nếu rỗng – vì nếu vừa được đọc bởi 1 người, danh sách có size = 1
         return new ChatMessageResponse(
                 message.getId(),
                 message.getSender(),
@@ -118,5 +96,4 @@ public class ChatWebsocketController {
                 message.getSender().equals(currentUsername)
         );
     }
-
 }
