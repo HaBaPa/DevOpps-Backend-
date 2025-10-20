@@ -1,10 +1,10 @@
 # -----------------------------
 # Stage 1: Build Spring Boot app
 # -----------------------------
-FROM gradle:8.3-jdk21 AS builder
+FROM gradle:8.7-jdk21 AS builder
 WORKDIR /app
 COPY . .
-RUN gradle clean build -x test
+RUN gradle clean build -x test --no-daemon
 
 # -----------------------------
 # Stage 2: Run app
