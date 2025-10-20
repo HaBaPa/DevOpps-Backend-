@@ -2,7 +2,6 @@ package com.atp.fwfe.config;
 
 import com.atp.fwfe.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,17 +25,21 @@ public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
 
-    public SecurityConfig(JwtFilter jwtFilter){
+    public SecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
 
     @Bean
-    public SecurityFilterChain sercurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/favicon.ico", "/static/**").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/chat/**", "/api/companies").permitAll()
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                         .requestMatchers("/api/auth/**").permitAll()
@@ -46,12 +49,16 @@ public class SecurityConfig {
 =======
                         .requestMatchers("/api/auth/**", "/api/chat/**").permitAll()
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
 
                         .requestMatchers(HttpMethod.GET, "/api/admin/*").authenticated()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
                         .requestMatchers("/api/account/**").hasAnyRole("ADMIN", "MANAGER", "USER")
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                         .requestMatchers("/api/chat/**").hasAnyRole("ADMIN", "MANAGER", "USER")
@@ -61,6 +68,8 @@ public class SecurityConfig {
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 
+=======
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
                         .requestMatchers(HttpMethod.POST, "/api/companies").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/companies/my").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/companies/search").hasAnyRole("ADMIN", "MANAGER", "USER")
@@ -69,18 +78,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/companies/**").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/companies/**").hasAnyRole("ADMIN", "MANAGER")
 
-
                         .requestMatchers(HttpMethod.POST, "/api/works/*/acceptances").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/api/works/*/acceptances/account/*/status/*").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/works/*/acceptances").hasAnyRole("ADMIN", "MANAGER", "USER")
 
-
                         .requestMatchers(HttpMethod.POST, "/api/works-posted").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/works-posted").hasAnyRole("ADMIN", "MANAGER", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/works-posted/getAll").hasAnyRole("ADMIN", "MANAGER", "USER")
                         .requestMatchers(HttpMethod.GET, "/api/works-posted/**").hasAnyRole("ADMIN", "MANAGER", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/works-posted/**").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/works-posted/**").hasAnyRole("ADMIN", "MANAGER")
-
 
                         .anyRequest().authenticated()
                 )
@@ -101,9 +108,11 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(){
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
         configuration.setAllowedOriginPatterns(List.of("http://localhost:*", "http://127.0.0.1:*"));
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         configuration.setAllowedOrigins(List.of("http://10.0.2.2:8000", "http://127.0.0.1:8000"));
@@ -117,6 +126,16 @@ public class SecurityConfig {
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+        configuration.setAllowedOrigins(List.of("http://10.0.2.2:8000", "http://127.0.0.1:8000"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of(
+                "Authorization",
+                "Content-Type",
+                "X-Username",
+                "X-Role"
+        ));
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         configuration.setExposedHeaders(List.of("Authorization"));
         configuration.setAllowCredentials(true);
 

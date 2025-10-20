@@ -40,6 +40,7 @@ public class WorkPostedService {
     public List<WorkPostedResponse> getAll(String role) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<WorkPosted> posts = postRepo.findAllWithRelations();
 =======
         List<WorkPosted> posts = "ROLE_USER".equals(role)
@@ -51,8 +52,12 @@ public class WorkPostedService {
                 ? postRepo.findByIsNotifiedFalse()
                 : postRepo.findAllWithRelations();
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+        List<WorkPosted> posts = postRepo.findAllWithRelations();
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         return posts.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
+
 
     public WorkPostedResponse getOne(Long id) {
         WorkPosted post = postRepo.findByIdWithRelations(id)

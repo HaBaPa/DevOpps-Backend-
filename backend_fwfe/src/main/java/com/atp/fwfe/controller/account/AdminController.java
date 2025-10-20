@@ -80,7 +80,4 @@ public class AdminController {
     public Account getOne(@PathVariable Long id){
       return accService.findOne(id);
     }
-
-
-
 }

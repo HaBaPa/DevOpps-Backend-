@@ -3,11 +3,15 @@ package com.atp.fwfe.controller.work;
 import com.atp.fwfe.dto.work.CompanyResponse;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.atp.fwfe.dto.work.CreateCompanyDto;
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+import com.atp.fwfe.dto.work.CreateCompanyDto;
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
 import com.atp.fwfe.service.work.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +19,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.security.core.context.SecurityContextHolder;
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+import org.springframework.security.core.context.SecurityContextHolder;
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,10 +44,14 @@ public class CompanyController {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
     private String getCurrentUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
+<<<<<<< HEAD
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<CompanyResponse> create(
@@ -58,10 +70,18 @@ public class CompanyController {
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+    @PostMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
+    public ResponseEntity<CompanyResponse> create(
+            @RequestBody @Valid CreateCompanyDto dto) {
+        return ResponseEntity.ok(companyService.create(dto, getCurrentUsername()));
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
     }
 
     @GetMapping("/my")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public ResponseEntity<List<CompanyResponse>> getByOwner() {
@@ -76,6 +96,10 @@ public class CompanyController {
             @RequestHeader("X-Username") String username) {
         return ResponseEntity.ok(companyService.findByOwner(username));
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+    public ResponseEntity<List<CompanyResponse>> getByOwner() {
+        return ResponseEntity.ok(companyService.findByOwner(getCurrentUsername()));
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
     }
 
     @GetMapping("/{id}/public")
@@ -84,6 +108,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.getSanitizedCompany(id));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     @GetMapping
@@ -104,11 +129,19 @@ public class CompanyController {
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+    @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+    public ResponseEntity<List<CompanyResponse>> getAll() {
+        String username = getCurrentUsername();
+        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         return ResponseEntity.ok(companyService.getAll(username, role));
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public ResponseEntity<CompanyResponse> getOne(@PathVariable Long id) {
@@ -125,6 +158,11 @@ public class CompanyController {
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+    public ResponseEntity<CompanyResponse> getOne(@PathVariable Long id) {
+        String username = getCurrentUsername();
+        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         return ResponseEntity.ok(companyService.getOne(id, username, role));
     }
 
@@ -132,6 +170,7 @@ public class CompanyController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     public ResponseEntity<CompanyResponse> update(
             @PathVariable Long id,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             @RequestBody @Valid CreateCompanyDto dto) {
@@ -147,11 +186,17 @@ public class CompanyController {
             @RequestHeader("X-Username") String username,
             @RequestHeader("X-Role") String role) {
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+            @RequestBody @Valid CreateCompanyDto dto) {
+        String username = getCurrentUsername();
+        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         return ResponseEntity.ok(companyService.update(id, dto, username, role));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -168,12 +213,18 @@ public class CompanyController {
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        String username = getCurrentUsername();
+        String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().iterator().next().getAuthority();
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         companyService.delete(id, username, role);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public ResponseEntity<List<CompanyResponse>> search(@RequestParam String keyword) {
@@ -193,3 +244,9 @@ public class CompanyController {
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
 =======
 >>>>>>> be9c2d22b390b8389679befff364e08bdff42788
+=======
+    public ResponseEntity<List<CompanyResponse>> search(@RequestParam String keyword) {
+        return ResponseEntity.ok(companyService.search(keyword));
+    }
+}
+>>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
