@@ -40,7 +40,16 @@ public class AccService {
     private final MailService mailService;
     private final CompanyService companyService;
 
-    public AccService(AccRepository accRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManager authenticationManager, TokenBlacklistService tokenBlacklistService, ReportRepository reportRepository, MailService mailService, CompanyService companyService) {
+    public AccService(
+            AccRepository accRepository,
+            PasswordEncoder passwordEncoder,
+            JwtUtil jwtUtil,
+            AuthenticationManager authenticationManager,
+            TokenBlacklistService tokenBlacklistService,
+            ReportRepository reportRepository,
+            MailService mailService,
+            CompanyService companyService) {
+
         this.accRepository = accRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
@@ -52,7 +61,7 @@ public class AccService {
     }
 
     //--------------------------------------------------------------------------------------------
-//AUTH chung chung bắt đầu
+    // AUTH - Đăng ký & đăng nhập
     public ResponseEntity<String> register(RegisterRequest request) {
         if (accRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username đã tồn tại!");
@@ -99,51 +108,15 @@ public class AccService {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body(new LoginResponse(
                                 null,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                "Tài khoản đã bị tạm khóa...",
+                                "Tài khoản đã bị tạm khóa 1 tuần bởi admin do vi phạm tiêu chuẩn cộng đồng.\nVui lòng chờ hoặc liên hệ quản trị viên qua Zalo: 0768471834",
                                 null,
                                 account.getUsername(),
                                 account.getId()
                         ));
-
-=======
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-                                "Tài khoản đã bị tạm khóa 1 tuần bởi admin do vi phạm tiêu chuẩn độ tin cậy với cộng đồng.\nVui lòng chờ hoặc liên hệ quản trị viên qua zalo - 0768471834 -",
-                                null,
-                                account.getUsername(),
-                                account.getId()
-                        ));
-<<<<<<< HEAD
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
             }
 
             String token = jwtUtil.generateToken(account.getUsername(), account.getRole());
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            return ResponseEntity.ok(new LoginResponse(token, "Đăng nhập thành công!", role, username, account.getId()));
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new LoginResponse(null, "Tên đăng nhập hoặc mật khẩu không đúng!", null, null, null));
-=======
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-            return ResponseEntity.ok(new LoginResponse(token, "Đăng nhập thành công!", role, username));
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new LoginResponse(null, "Tên đăng nhập hoặc mật khẩu không đúng!", null, null));
-<<<<<<< HEAD
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
             return ResponseEntity.ok(new LoginResponse(
                     token,
                     "Đăng nhập thành công!",
@@ -155,7 +128,6 @@ public class AccService {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse(null, "Tên đăng nhập hoặc mật khẩu không đúng!", null, null, null));
->>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
         }
     }
 
@@ -180,11 +152,8 @@ public class AccService {
         return ResponseEntity.ok("Token hợp lệ. Role: " + role);
     }
 
-
-
-    //AUTH chung chung kết thúc
-//----------------------------------------------------------------------------------------------------
-//ADMIN bắt đầu-------------------- ADMIN ---------------------------
+    //--------------------------------------------------------------------------------------------
+    // ADMIN
     public ResponseEntity<String> createUser(AdminCreateUserRequest request) {
         if (accRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().body("Username đã tồn tại!");
@@ -195,7 +164,7 @@ public class AccService {
         }
 
         if (!request.getPassword().equals(request.getConfirmPassword())) {
-            return ResponseEntity.badRequest().body("Mật khẩu xác nhận không khớp?");
+            return ResponseEntity.badRequest().body("Mật khẩu xác nhận không khớp!");
         }
 
         Account account = new Account();
@@ -210,19 +179,15 @@ public class AccService {
         if ("ROLE_MANAGER".equals(request.getRole())) {
             CreateCompanyDto companyDto = request.getCompany();
             if (companyDto == null) {
-                return ResponseEntity.badRequest().body("Vai trò ROLE_MANAGER yêu cầu phải có đầy đủ thông tin công ty.");
+                return ResponseEntity.badRequest().body("ROLE_MANAGER yêu cầu thông tin công ty đầy đủ.");
             }
             companyDto.setCreatedBy(account);
             companyService.create(companyDto, account.getUsername());
         }
 
-        if (saved.getEmail() != null && saved.getEmail().matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            try {
-                mailService.sendWelcomeEmail(saved.getEmail(), saved.getName());
-            } catch (MessagingException e) {
-                System.err.println("Lỗi gửi email chào mừng: " + e.getMessage());
-            }
-        }
+        try {
+            mailService.sendWelcomeEmail(saved.getEmail(), saved.getName());
+        } catch (Exception ignored) {}
 
         return ResponseEntity.ok("Đã đăng ký thành công tài khoản cho: " + request.getUsername());
     }
@@ -240,7 +205,6 @@ public class AccService {
 
         account.setLocked(true);
         accRepository.save(account);
-
         return ResponseEntity.ok("Đã khóa tài khoản thành công!");
     }
 
@@ -257,21 +221,13 @@ public class AccService {
 
         account.setLocked(false);
         accRepository.save(account);
-
         return ResponseEntity.ok("Đã mở khóa tài khoản thành công!");
     }
 
     public Account updateAdmin(Long id, AdminUpdateUserRequest request) {
         Account account = findOne(id);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
-        if (request.getName() != null) {
-            account.setName(request.getName());
-        }
+        if (request.getName() != null) account.setName(request.getName());
 
         if (request.getEmail() != null) {
             Optional<Account> existingEmail = accRepository.findByEmail(request.getEmail());
@@ -281,36 +237,13 @@ public class AccService {
             account.setEmail(request.getEmail());
         }
 
-        if (request.getRole() != null) {
-            account.setRole(request.getRole());
-        }
-<<<<<<< HEAD
-=======
-        if(request.getRole() != null) account.setRole(request.getRole());
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
-        if(request.getRole() != null) account.setRole(request.getRole());
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
+        if (request.getRole() != null) account.setRole(request.getRole());
 
         account.setLocked(request.isLocked());
         account.setUpdatedBy(request.getUpdatedBy());
-
         return accRepository.save(account);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    //ADMIN kết thúc
-=======
-//ADMIN kết thúc
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
-//ADMIN kết thúc
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
     public List<Report> findByResolvedFalse() {
         return reportRepository.findByResolvedFalse();
     }
@@ -319,11 +252,8 @@ public class AccService {
         accRepository.deleteById(id);
     }
 
-
-    //ADMIN kết thúc
->>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
-//------------------------------------------------------------------------------------------------------
-//Account(USER + MANAGER) bắt đầu
+    //--------------------------------------------------------------------------------------------
+    // USER + MANAGER
     public List<Account> findAll() {
         return accRepository.findAll();
     }
@@ -349,14 +279,14 @@ public class AccService {
         if (request.getEmail() != null && !request.getEmail().equals(account.getEmail())) {
             Optional<Account> existingEmail = accRepository.findByEmail(request.getEmail());
             if (existingEmail.isPresent()) {
-                throw new IllegalArgumentException("Email đã dùng để đăng ký tài khoản khác trong hệ thống. Vui lòng chọn Email khác!");
+                throw new IllegalArgumentException("Email đã dùng cho tài khoản khác!");
             }
             account.setEmail(request.getEmail());
         }
 
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             if (!request.getPassword().equals(request.getConfirmPassword())) {
-                throw new IllegalArgumentException("Mật khẩu xác nhận không khớp!!");
+                throw new IllegalArgumentException("Mật khẩu xác nhận không khớp!");
             }
             account.setPassword(passwordEncoder.encode(request.getPassword()));
         }
@@ -395,6 +325,4 @@ public class AccService {
     public List<Account> searchByKeyword(String keyword) {
         return accRepository.searchByKeyword(keyword);
     }
-
-    //Account(USER + MANAGER_ kết thúc
 }
