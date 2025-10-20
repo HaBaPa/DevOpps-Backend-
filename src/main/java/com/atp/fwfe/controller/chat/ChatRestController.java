@@ -5,6 +5,7 @@ import com.atp.fwfe.model.account.Account;
 import com.atp.fwfe.service.chat.ChatMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -23,13 +24,7 @@ public class ChatRestController {
     @Autowired
     private ChatMessageService messageService;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
     @GetMapping("/received")
     public List<ChatMessageResponse> getReceivedMessages(Principal principal) {
         return messageService.findReceivedMessages(principal.getName())
@@ -42,24 +37,14 @@ public class ChatRestController {
                         m.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                         m.getType().toString(),
                         (m.getReadBy() == null || m.getReadBy().isEmpty())
-                                ? new ArrayList<>() // fallback: tránh null
+                                ? new ArrayList<>() // tránh null
                                 : m.getReadBy().stream().map(Account::getUsername).toList(),
                         false
                 ))
                 .toList();
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER','ROLE_USER')")
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
->>>>>>> be9c2d22b390b8389679befff364e08bdff42788
-=======
-
->>>>>>> dd9e548b27a8559239cd2901f94860b9b455b161
     @PutMapping("/mark-read/{id}")
     public ResponseEntity<?> markAsRead(@PathVariable Long id, Principal principal) {
         messageService.markAsRead(id, principal.getName());
@@ -71,5 +56,4 @@ public class ChatRestController {
         List<String> senders = messageService.getSendersTo(myUsername);
         return ResponseEntity.ok(senders);
     }
-
 }
