@@ -41,5 +41,5 @@ jobs:
           context: ./backend_fwfe           
           file: ./backend_fwfe/Dockerfile   
           push: true
-          tags: habapa2k4/backend:latest
+          tags: habapa2k4/habapa:backend-latest
 
